@@ -6,8 +6,7 @@ const Index = () => {
     return (
         <div>
 
-            <Navbar/>
-            <Login/>
+           <Login/>
         </div>
     );
 };
