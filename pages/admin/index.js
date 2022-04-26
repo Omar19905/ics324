@@ -1,11 +1,13 @@
 import React from 'react';
 import Navbar from "../../Componets/Admin/Navbar";
+import Login from "../../Componets/Admin/Login";
 
 const Index = () => {
     return (
         <div>
 
             <Navbar/>
+            <Login/>
         </div>
     );
 };
