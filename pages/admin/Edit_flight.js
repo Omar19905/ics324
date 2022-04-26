@@ -54,7 +54,6 @@ const EditFlight = ({flight,getFlights}) => {
                     value: options[i].planeId,
 
                 })
-                console.log(data)
                 setPlanes(data)
             }
 
@@ -71,7 +70,7 @@ const EditFlight = ({flight,getFlights}) => {
         setBusinessPrice(flight.businessPrice)
         setFirstPrice(flight.firstPrice)
 
-    })
+    },[])
 
     function handleSubmit(){
         setIsLoading(true);

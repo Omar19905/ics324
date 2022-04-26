@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import {ChakraProvider, extendTheme} from "@chakra-ui/react";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const theme = extendTheme({
@@ -12,9 +13,16 @@ function MyApp({ Component, pageProps }) {
     }
   })
     return (
-        <ChakraProvider theme={theme}>
+        <>
+          <Head>
+          <title>Create Next App</title>
+          <meta name="description" content="ics 324 project"/>
+          <link rel="icon" href="/plane.png"/>
+        </Head>
+          <ChakraProvider theme={theme}>
             <Component {...pageProps} />
-        </ChakraProvider>
+          </ChakraProvider>
+        </>
     )
 }
 

@@ -12,6 +12,7 @@
     } from '@chakra-ui/react'
     import Edit_flight from "../../pages/admin/Edit_flight";
     import axios from "axios";
+    import WaitListed from "../../pages/admin/WaitListed";
 
     const FlightsList = ({flights, getFlights}) => {
         const toast = useToast()
@@ -49,6 +50,7 @@
                     <Button
                         onClick={() => handleDeletePlane(flight.flightId)}
                         color={"white"} bg={"red.500"}>Delete</Button>
+                    <WaitListed flight={flight.flightId}/>
                 </Td>
             </Tr>
         ))
