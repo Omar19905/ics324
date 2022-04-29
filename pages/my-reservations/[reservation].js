@@ -88,7 +88,7 @@ const Reservation = ({reservation_info}) => {
                 <Center>
                     <HStack mt={16}>
                     <CancelTicket reservation={reservation_info[0].reservation} fines={reservation_info[0].seat.missingFine}/>
-                    <Button  color={"white"} px={24} bg={"yellow.400"}>Edit</Button>
+                    <Button onClick={()=>router.push(`/my-reservations/edit/${reservation_info[0].reservation}`)} variant={"outline"} colorScheme={"yellow"} px={20} >Edit</Button>
                 </HStack>
                 </Center>
 

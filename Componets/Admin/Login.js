@@ -15,6 +15,7 @@ import {
     useColorModeValue,
     Link, Center, Alert, AlertIcon, AlertTitle, AlertDescription,
 } from '@chakra-ui/react';
+
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from "axios";
 import {useRouter} from "next/router";
@@ -36,9 +37,10 @@ const Login = () => {
                 password:password
             }
         }).then(function (response) {
+
             router.push("/admin/flights")
         }).catch(function (error) {
-            setError(error.response.data.status);
+            setError(error.response.data.error);
 
         })
     }

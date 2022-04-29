@@ -20,6 +20,7 @@ const Navbar = () => {
                 <Button bg={"transparent"} cursor={"pointer"} onClick={()=>router.push("/admin/booking_percentage")}  color={"g.2"} fontSize={"lg"}>Booking Percentage</Button>
                 <Button bg={"transparent"} cursor={"pointer"} onClick={()=>router.push("/admin/confirmed_purchases")}  color={"g.2"} fontSize={"lg"}>Confirmed Purchases</Button>
                 <Button bg={"transparent"} cursor={"pointer"} onClick={()=>router.push("/admin/cancelled_tickets")}  color={"g.2"} fontSize={"lg"}>Cancelled Tickets</Button>
+                <Button bg={"transparent"} cursor={"pointer"} onClick={()=>router.push("/admin/wait_listed")}  color={"g.2"} fontSize={"lg"}>Wait Listed</Button>
 
 
             </HStack>

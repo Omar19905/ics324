@@ -24,9 +24,9 @@ import {useRouter} from "next/router";
 import axios from "axios";
 
 
-const FlightId = ({seats,reservation}) => {
-    const [passengers,setPassengers]= useState([])
-    const [filteredSeats,setFilteredSeats]=useState(seats.seats.filter(seat => seat.class ==="Economy"))
+const FlightId = ({seats, reservation}) => {
+    const [passengers, setPassengers] = useState([])
+    const [filteredSeats, setFilteredSeats] = useState(seats.seats.filter(seat => seat.class === "Economy"))
     const [classType, setClassType] = React.useState('Economy')
     const [weight, setWeight] = React.useState(20)
     const [firstName, setFirstName] = React.useState("")
@@ -44,35 +44,62 @@ const FlightId = ({seats,reservation}) => {
     const router = useRouter()
     const {flightId} = router.query
 
-    useEffect(()=>{
-        const result = seats.seats.filter(seat => seat.class ===classType);
+    useEffect(() => {
+        const result = seats.seats.filter(seat => seat.class === classType);
         setFilteredSeats(result)
-    },[classType])
-
+    }, [classType])
 
 
     const data = filteredSeats.sort().map((seat, index) => {
-        return(
+        return (
             <Radio colorScheme={"red"} value={seat.seatNumber}>{seat.seatNumber}</Radio>
         )
 
     })
 
     const addedPassengers = passengers.map((passenger, index) => {
-        console.log(passenger)
-        return(
-            <Code size={"xl"} bg={"gray.100"}> Name: {passenger.firstName} {passenger.lastName} | Seat: {passenger.seat}  </Code>
+        return (
+            <Flex shadow={"md"} p={1} border={"solid 1px #ccc"} rounded={"lg"} w={"90%"} >
+
+                <HStack mt={5} justifyContent={"center"} flex='1' textAlign='left'>
+                    <Spacer/>
+                    <HStack fontSize={"xl"} fontWeight={"semibold"}>
+                        <Text color={"g.1"}>Passenger{index+1}:</Text>
+                    </HStack>
+                    <Spacer/>
+                    <VStack fontSize={"xl"} fontWeight={"semibold"}>
+                        <Text color={"g.2"}>First Name</Text>
+                        <Text>{passenger.firstName.toUpperCase()}</Text>
+                    </VStack>
+                    <Spacer/>
+                    <Spacer/>
+                    <VStack fontSize={"xl"} fontWeight={"semibold"}>
+                        <Text color={"g.2"}>Last Name</Text>
+                        <Text>{passenger.lastName.toUpperCase()}</Text>
+                    </VStack>
+                    <Spacer/>
+                    <VStack fontSize={"xl"} fontWeight={"semibold"}>
+                        <Text color={"g.2"}>Seat</Text>
+                        <Text>{passenger.seat}
+                        </Text>
+                    </VStack>
+                    <Spacer/>
+
+
+                </HStack>
+            </Flex>
         )
 
     })
 
     function handlePayment() {
-        axios({method: 'post',url: 'http://localhost:3007/pay',
+        axios({
+            method: 'post', url: 'http://localhost:3007/pay',
             data: {
-                identification:reservation,
-                cardNumber:cardnumber,
-                expirationDate:expirationDate,
-                ccv:ccv
+                identification: reservation,
+                cardNumber: cardnumber,
+                expirationDate: expirationDate,
+                ccv: ccv
             }
         }).then(function (response) {
 
@@ -84,15 +111,16 @@ const FlightId = ({seats,reservation}) => {
 
     function book_flight() {
 
-        passengers.forEach((passenger)=>{
+        passengers.forEach((passenger) => {
             console.table(passenger)
             console.log(flightId)
             console.log(reservation)
-            axios({method: 'post',url: 'http://localhost:3007/book_seat',
+            axios({
+                method: 'post', url: 'http://localhost:3007/book_seat',
                 data: {
                     flight: passenger.flight,
                     seat: passenger.seat,
-                    weight: passenger.weight ,
+                    weight: passenger.weight,
                     identification: passenger.identification,
                     reservation: passenger.reservation,
                     firstName: passenger.firstName,
@@ -111,13 +139,14 @@ const FlightId = ({seats,reservation}) => {
     console.log(classType)
 
     function enroll_waitlist() {
-        axios({method: 'post',url: 'http://localhost:3007/enroll_waitlist',
+        axios({
+            method: 'post', url: 'http://localhost:3007/enroll_waitlist',
             data: {
                 flight: flightId,
                 identification: id,
                 firstName: firstName,
                 lastName: lastName,
-                class:classType
+                class: classType
             }
         }).then(function (response) {
             router.push("/waitlist")
@@ -128,8 +157,8 @@ const FlightId = ({seats,reservation}) => {
 
     return (
         <>
-            <Box p={3}  top={0} w={"100%"} bg={"g.1"} color={"g.2"} mb={5}
-                fontSize={"xl"}>Reservation: {reservation}</Box>
+            <Box p={3} top={0} w={"100%"} bg={"g.1"} color={"g.2"} mb={5}
+                 fontSize={"xl"}>Reservation: {reservation}</Box>
 
             <Box mt={10} mx={"10rem"}>
 
@@ -196,7 +225,8 @@ const FlightId = ({seats,reservation}) => {
                                     setSeat("")
                                     setTotalPrice(totalPrice + filteredSeats[0].price)
 
-                                }} disabled={passengers.length>=10} _hover={{backgroundColor: "g.2"}} color={"white"} bg={"g.2"} rounded={"xl"}
+                                }} disabled={passengers.length >= 10} _hover={{backgroundColor: "g.2"}} color={"white"}
+                                        bg={"g.2"} rounded={"xl"}
                                         w={"18%"}>
                                     Add Passenger
 
@@ -212,18 +242,20 @@ const FlightId = ({seats,reservation}) => {
                                     </Stack>
                                 </RadioGroup>
 
-                                {filteredSeats.length >0 && <Text fontSize={"xl"}>Price: {filteredSeats[0].price}</Text>
-                                }                                <RadioGroup mt={10} value={seat} onChange={setSeat}>
-                                    Seats:
+                                {filteredSeats.length > 0 &&
+                                <Text fontSize={"xl"}>Price: {filteredSeats[0].price}</Text>
+                                } <RadioGroup mt={10} value={seat} onChange={setSeat}>
+                                Seats:
 
-                                    <SimpleGrid w={"500px"} columns={4}>
+                                <SimpleGrid w={"500px"} columns={4}>
 
-                                        {data}
+                                    {data}
 
-                                    </SimpleGrid>
-                                </RadioGroup>
-                                {filteredSeats.length ==0 &&
-                                <Button onClick={enroll_waitlist} colorScheme={"green"} variant={"outline"} mt={2}>Enroll in wait list</Button>
+                                </SimpleGrid>
+                            </RadioGroup>
+                                {filteredSeats.length == 0 &&
+                                <Button onClick={enroll_waitlist} colorScheme={"green"} variant={"outline"} mt={2}>Enroll
+                                    in wait list</Button>
                                 }
 
                             </Box>
@@ -242,39 +274,43 @@ const FlightId = ({seats,reservation}) => {
                         </h2>
                         <AccordionPanel pb={4}>
 
-                                <FormControl>
+                            <FormControl>
 
-                                    <FormLabel>Card Holder</FormLabel>
-                                    <Input fontWeight={"semibold"} placeholder='enter caerd holder name'/>
-                                </FormControl>
+                                <FormLabel>Card Holder</FormLabel>
+                                <Input fontWeight={"semibold"} placeholder='enter caerd holder name'/>
+                            </FormControl>
 
-                                <FormControl mt={10}>
-                                    <FormLabel>Card Number</FormLabel>
+                            <FormControl mt={10}>
+                                <FormLabel>Card Number</FormLabel>
 
-                                    <Input onChange={(e)=>setCardNumber(e.target.value)} type="number" placeholder={"card number"}/>
+                                <Input onChange={(e) => setCardNumber(e.target.value)} type="number"
+                                       placeholder={"card number"}/>
 
-                                </FormControl>
+                            </FormControl>
 
-                                <HStack mt={10}>
-                                    <FormLabel minW={"20%"}>Expiry Date</FormLabel>
-                                    <Input onChange={(e)=>setExpirationDate(e.target.value)} fontWeight={"semibold"} w={"100px"} placeholder='MM/YY' />
+                            <HStack mt={10}>
+                                <FormLabel minW={"20%"}>Expiry Date</FormLabel>
+                                <Input onChange={(e) => setExpirationDate(e.target.value)} fontWeight={"semibold"}
+                                       w={"100px"} placeholder='MM/YY'/>
 
-                                </HStack>
+                            </HStack>
 
-                                <HStack mt={10}>
-                                    <FormLabel minW={"20%"}>CCV number</FormLabel>
-                                    <Input onChange={(e)=>setCcv(e.target.value)} fontWeight={"semibold"} w={"100px"} placeholder='3 digits'/>
-                                </HStack>
+                            <HStack mt={10}>
+                                <FormLabel minW={"20%"}>CCV number</FormLabel>
+                                <Input onChange={(e) => setCcv(e.target.value)} fontWeight={"semibold"} w={"100px"}
+                                       placeholder='3 digits'/>
+                            </HStack>
 
                             <Button mt={10}
 
-                                    onClick={()=>{
+                                    onClick={() => {
                                         book_flight()
                                     }}
 
 
-                                    _hover={{backgroundColor: "g.2"}} h={10} w={"60%"} px={10} color={"white"} bg={"g.2"}
-                                mx={"auto"}>
+                                    _hover={{backgroundColor: "g.2"}} h={10} w={"60%"} px={10} color={"white"}
+                                    bg={"g.2"}
+                                    mx={"auto"}>
                                 Pay ${totalPrice} now
                             </Button>
 
@@ -294,13 +330,14 @@ export async function getServerSideProps(context) {
     const res = await fetch(`http://localhost:3007/flight_seats?flight=${flightId}`)
     const seats = await res.json()
 
-    const reservation = Math.random().toString(36).substr(2, 3)+"-"+Math.random().toString(36).substr(2, 3);
+    const reservation = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 3);
 
 
     console.log(seats)
 
     return {
-        props: {seats,reservation}, // will be passed to the page component as props
+        props: {seats, reservation}, // will be passed to the page component as props
     }
 }
-    export default FlightId;
+
+export default FlightId;
