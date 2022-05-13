@@ -4,6 +4,7 @@ import Navbar from "../../Componets/Admin/Navbar";
 
 const WaitListed = ({waitlisted}) => {
 
+    
     const data = waitlisted.map((passenger, index) => {
         return(
             <Flex  p={5} border={"solid 1px #ccc"}  w={"90%"} mt={10} mx={16}>

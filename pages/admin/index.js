@@ -18,6 +18,7 @@ const Index = () => {
 //     console.log(data)
 //
 //     return {
+    
 //         props: {}, // will be passed to the page component as props
 //     }
 // }

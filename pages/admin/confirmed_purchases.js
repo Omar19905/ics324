@@ -31,6 +31,7 @@ const ConfirmedPurchases = ({confirmedPurchases}) => {
 
 
 
+
                 </HStack>
             </Flex>
         )

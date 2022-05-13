@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Flex, HStack, Radio, Spacer, Text, VStack} from "@chakra-ui/react";
 import Navbar from "../../Componets/Admin/Navbar";
 
+
 const ActiveFlights = ({activeFlights}) => {
     console.log(activeFlights)
     const data = activeFlights.map((flight, index) => {

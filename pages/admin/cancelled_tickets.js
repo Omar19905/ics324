@@ -34,6 +34,7 @@ const CancelledTickets = ({cancelledTickets}) => {
         )
 
     })
+    
 
     return (
         <>

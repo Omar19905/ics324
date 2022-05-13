@@ -19,6 +19,7 @@ const BookingPercentage = () => {
         })
     }
 
+    
     const data = flights.map((flight, index) => {
         return(
             <Flex shadow={"md"} p={5} border={"solid 1px #ccc"} rounded={"lg"} w={"90%"} mt={10} mx={16}>

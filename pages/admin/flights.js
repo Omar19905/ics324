@@ -15,6 +15,7 @@ const Flights = () => {
             setFlights(response.data.flights)
         })
     }
+    
     useEffect(()=>{
         getFlights()
 

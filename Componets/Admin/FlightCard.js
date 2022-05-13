@@ -7,4 +7,5 @@ const FlightCard = () => {
     );
 };
 
+
 export default FlightCard;
